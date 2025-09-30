@@ -2,65 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login Form</title>
+  <title>Random Password Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 40px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
+      text-align: center;
     }
     button {
-      margin-top: 20px;
+      font-size: 18px;
       padding: 10px 20px;
-      font-size: 16px;
       cursor: pointer;
     }
-    #result {
-      margin-top: 30px;
-      padding: 15px;
-      background-color: #f0f0f0;
-      border-radius: 5px;
-      word-wrap: break-word;
+    #passwordDisplay {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      user-select: all;
     }
   </style>
 </head>
 <body>
-  <h2>Login Form</h2>
-  <form id="loginForm">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-    <button type="submit">Submit</button>
-  </form>
-  <div id="result"></div>
+
+  <h1>Random Password Generator</h1>
+
+  <button id="generateBtn">Generate Password</button>
+
+  <div id="passwordDisplay"></div>
+
   <script>
-    const form = document.getElementById('loginForm');
-    const resultDiv = document.getElementById('result');
+    function generateRandomPassword(length = 8) {
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      const numbers = '0123456789';
+      const characters = letters + numbers;
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault(); 
-      const username = form.username.value;
-      const password = form.password.value;
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters[randomIndex];
+      }
+      return password;
+    }
 
-      resultDiv.innerHTML = `
-        <h3>Submitted Data:</h3>
-        <p><strong>Username:</strong> ${username}</p>
-        <p><strong>Password:</strong> ${password}</p>
-      `;
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const password = generateRandomPassword();
+      document.getElementById('passwordDisplay').textContent = password;
     });
   </script>
 
