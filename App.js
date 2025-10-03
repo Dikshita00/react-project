@@ -1,11 +1,15 @@
 import React from "react";
-import DemoWithoutCallback from "./DemoWithoutCallback";
+import ErrorBoundary from "./ErrorBoundary";
+function BuggyComponent() {
+  throw new Error("I crashed!");
+  return <div>This will never render.</div>;
+}
 
 function App() {
   return (
-    <div className="App">
-      <DemoWithoutCallback />
-    </div>
+    <ErrorBoundary>
+      <BuggyComponent />
+    </ErrorBoundary>
   );
 }
 
